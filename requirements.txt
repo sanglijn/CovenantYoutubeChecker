@@ -1,4 +1,4 @@
 flask
 google
 google_auth_oauthlib
-googleapiclient
+google-api-python-client
