@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-import random
+
 import flask
 
 import google.oauth2.credentials
@@ -92,22 +92,19 @@ def oauth2callback():
 def is_subscriber(client):
     request = client.subscriptions().list(
         part="snippet",
-        forChannelId="UCIp7tRBZx3UVC2tIVFx1xyw",
+        forChannelId="UC-XYSwwp5mFnSJVUGQh07dA",
         mine=True
     )
     response = request.execute()
     results = response['pageInfo']['totalResults']
-    print(results)
-    #if results != 0:
-    #    return 'You are subscribed. Thank you!'
-    #else:
-    #    return 'You are not subscribed yet.'
+    if results != 0:
+        return 'You are subscribed. Thank you!'
+    else:
+        return 'You are not subscribed yet.'
     #return flask.jsonify(**response)
 
 if __name__ == '__main__':
   # When running locally, disable OAuthlib's HTTPs verification. When
   # running in production *do not* leave this option enabled.
-  os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '0'
-  app.run(host='0.0.0.0',  # Establishes the host, required for repl to detect the site
-		port=random.randint(2000, 9000)  # Randomly select the port the machine hosts on.
-	)
+  os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+  app.run('localhost', 8090, debug=True)
